@@ -1,0 +1,98 @@
+@import "../../colors.scss";
+@import "../../fonts.scss";
+
+
+.loginWrap {
+    background: $bgwhite;
+    width: 80%;
+    max-width: 385px;
+    margin: 30px auto 0;
+    padding: 8px 23px 28px;
+    border-top: solid 3px $primarycolor;
+    font-family: 'Roboto';
+
+    .error {
+        color: $error;
+        font-size: 12px;
+    }
+
+    p {
+        line-height: 0.75em;
+        text-align: center;
+        font-size: 0.95em;
+
+        a {
+            font-family: 'Roboto-bold';
+            text-decoration: underline;
+            color: inherit;
+        }
+    }
+
+    fieldset {
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        padding-right: 0;
+
+        input {
+            border: solid 1px $lightgrey;
+            background: $bgwhite;
+            height: 44px;
+            padding: 0 0 0 9px;
+            font-family: 'Roboto';
+            margin-top: 3px;
+        }
+
+        label {
+            font-family: 'Roboto-medium';
+        }
+
+        
+    }
+
+    
+        fieldset.row {
+            flex-direction: row;
+            align-items: center;
+
+            label {
+                font-family: 'Roboto';
+            }
+
+            input {
+                height: auto;
+            }
+        }
+
+
+        .btn {
+            background: $primarycolor;
+            color: $bgwhite;
+            border: 0;
+            margin: 7px auto 12px;
+            padding: 10px 20px 13px 20px;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Roboto-medium';
+            font-size: 1.2em;
+            &:hover {
+                background-color: $primarycolorHover;
+            }
+        }
+
+        .btn:disabled {
+            background: $disabledcolor;
+            cursor: not-allowed;
+        }
+
+        h3 {
+            font-family: 'Roboto-bold';
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        
+    
+}
+
