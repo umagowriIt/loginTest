@@ -5,14 +5,14 @@ import Errors from './formError';
 import './Login.scss';
 import { loginDataInterface, loginInterface } from '../../interfaces/login';
 import { validateLoginObj } from '../../common/validators';
-import formError from './formError';
 
 const Login = () => {
 
-    const initFormData : loginInterface= { email: { value : "", errors : [] } , password: { value : "", errors : [] }}
+    const initFormData : loginInterface= { email: { value : "", errors : [] } , password: { value : "", errors : [] }};
 
     const [formObj, setFormObj ] = useState(initFormData);
-    const [ formErr, setFormErr] = useState([] as string[])
+    const [ formErr, setFormErr] = useState([] as string[]);
+    const [ loading , setLoading ] = useState(false);
     
     const [rememberMe, setRememberMe ] = useState(false);
 
@@ -21,6 +21,8 @@ const Login = () => {
     // type --> "email | password"
     // e --> event fired
     const handleChange = (type : string, e : any) => {
+
+        setFormErr([])
 
         const curval = e.target.value;
 
@@ -49,6 +51,11 @@ const Login = () => {
 
     // checks to see if the form button is disabled or not
     const isSubmitDisabled = () : boolean => {
+
+        if(loading) {
+            return true;
+        }
+
         const { email, password} = formObj;
 
         if ( (email && email.isTouched && email.errors && email.errors.length === 0) && 
@@ -64,6 +71,7 @@ const Login = () => {
     // e --> event fired object
     const handleFormSubmit = async (e : any) => {
         e.preventDefault();
+        setLoading(true);
 
         let loginData : any = {} ;
        
@@ -80,13 +88,16 @@ const Login = () => {
     // loginData -->  { email : "", password : ""}
     const loginUserApi = async(loginData : loginDataInterface) => {
         try {
-            const formSubmit = await loginUser(loginData)
+            const formSubmit = await loginUser(loginData);
+            setLoading(false);
         } catch (err : any) {
-
+            setLoading(false);
             setFormErr(["An error occured while trying to save the form"]);
         }
     }
 
+    const submitText = loading ? "Loading..." : "Sign In";
+ 
     return (
         <>
             <div className='loginWrap'>
@@ -108,9 +119,9 @@ const Login = () => {
                         <input type="checkbox" onChange={handleRememberChange} />
                         <label>Remember me?</label>
                     </fieldset>
-                    <Errors errors = {formErr} />
+                    <Errors errors = {formErr} />                    
 
-                    <input disabled={isSubmitDisabled()} className='btn' type="submit"  value="Sign In" />
+                    <input disabled={isSubmitDisabled()} className='btn' type="submit"  value={submitText} />
 
                 </form>
 
